@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>우리 학교 민주주의 연결 노트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  --bg:#F2F7FF; --sheet:#FFFFFF; --ink:#1E2547; --ink-2:#5B6385; --rule:#DCE3F2; --dot:#CFDAF0;
+  --marker:#FFE45C; --school:#E3A400; --school-soft:#FFF6CF;
+  --blue:#2F6FED; --blue-s:#E5EEFF; --coral:#E8504B; --coral-s:#FFE9E8; --green:#0F9A69; --green-s:#DFF5EC;
+  --purple:#7646F0; --purple-s:#EEE8FF; --orange:#D97A00; --orange-s:#FFF0D9; --teal:#0B8E9A; --teal-s:#DDF5F7; --pink:#D63F8C; --pink-s:#FFE6F2;
+  --ok:#14935F; --ok-s:#E2F5EB; --pen:#E0384C; --pen-s:#FDE7EA; --on-ink:#FFFFFF;
+  --kakao:#FEE500; --kakao-ink:#191919;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12172B; --sheet:#1A2140; --ink:#EEF1FF; --ink-2:#A9B1D6; --rule:#2E3862; --dot:#28305A;
+    --marker:#F2D33A; --school:#F5C842; --school-soft:#3A3414;
+    --blue:#86ADFF; --blue-s:#1D2A55; --coral:#FF8A85; --coral-s:#3D2026; --green:#4FD3A0; --green-s:#143A2D;
+    --purple:#B9A2FF; --purple-s:#2B2352; --orange:#FFB54D; --orange-s:#3A2A12; --teal:#4FD1DB; --teal-s:#123A3E; --pink:#FF8CC4; --pink-s:#3D1D30;
+    --ok:#5ED39A; --ok-s:#163327; --pen:#FF7088; --pen-s:#3A1C27; --on-ink:#12172B;
+    --kakao:#FEE500; --kakao-ink:#191919;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12172B; --sheet:#1A2140; --ink:#EEF1FF; --ink-2:#A9B1D6; --rule:#2E3862; --dot:#28305A;
+  --marker:#F2D33A; --school:#F5C842; --school-soft:#3A3414;
+  --blue:#86ADFF; --blue-s:#1D2A55; --coral:#FF8A85; --coral-s:#3D2026; --green:#4FD3A0; --green-s:#143A2D;
+  --purple:#B9A2FF; --purple-s:#2B2352; --orange:#FFB54D; --orange-s:#3A2A12; --teal:#4FD1DB; --teal-s:#123A3E; --pink:#FF8CC4; --pink-s:#3D1D30;
+  --ok:#5ED39A; --ok-s:#163327; --pen:#FF7088; --pen-s:#3A1C27; --on-ink:#12172B;
+  --kakao:#FEE500; --kakao-ink:#191919;
+  color-scheme:dark;
+}
+/* fixed light colors for PDF / image export */
+.print-light{
+  --sheet:#FFFFFF; --ink:#1E2547; --ink-2:#5B6385; --rule:#DCE3F2; --marker:#FFE45C; --school:#E3A400; --school-soft:#FFF6CF;
+  --purple:#7646F0; --purple-s:#EEE8FF; --teal:#0B8E9A; --teal-s:#DDF5F7; --pen:#E0384C; --ok:#14935F; --blue:#2F6FED; --blue-s:#E5EEFF;
+}
+.page[data-c="blue"]{--c:var(--blue);--cs:var(--blue-s)}
+.page[data-c="coral"]{--c:var(--coral);--cs:var(--coral-s)}
+.page[data-c="green"]{--c:var(--green);--cs:var(--green-s)}
+.page[data-c="purple"]{--c:var(--purple);--cs:var(--purple-s)}
+.page[data-c="orange"]{--c:var(--orange);--cs:var(--orange-s)}
+.page[data-c="pink"]{--c:var(--pink);--cs:var(--pink-s)}
+.page[data-c="teal"]{--c:var(--teal);--cs:var(--teal-s)}
+
+*{box-sizing:border-box}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 130px)}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  font-size:16.5px;line-height:1.7;
+  background-image:radial-gradient(var(--dot) 1.4px,transparent 1.6px);background-size:22px 22px;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3,h4,.jua{font-family:'Jua','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-weight:400;line-height:1.3;margin:0}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hl{background:linear-gradient(transparent 55%,var(--marker) 55%);padding:0 2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);box-shadow:0 2px 0 var(--rule)}
+.bar{max-width:900px;margin:0 auto;padding:12px 18px 6px;display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--marker);display:grid;place-items:center;font-size:22px;flex-shrink:0;transform:rotate(-6deg)}
+.brand{min-width:0;flex:1}
+.brand h1{font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand h1 .short{display:none}
+.brand small{display:block;color:var(--ink-2);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.stars{flex-shrink:0;display:flex;gap:3px;align-items:center;font-size:13px;color:var(--ink-2)}
+.stars i{font-style:normal;font-size:17px;filter:grayscale(1);opacity:.35;transition:.3s}
+.stars i.on{filter:none;opacity:1}
+.who{flex-shrink:0;border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-size:13px;background:var(--sheet);cursor:pointer;white-space:nowrap;font-weight:700}
+nav{max-width:900px;margin:0 auto;padding:6px 12px 10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;border:2px solid transparent;background:var(--bg);border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--ink-2);font-size:14px;display:flex;gap:6px;align-items:center;font-weight:500}
+nav button .e{font-size:16px}
+nav button[aria-selected="true"]{background:var(--tc);border-color:var(--tc);color:var(--on-ink);font-weight:700}
+nav button.done:not([aria-selected="true"])::after{content:"✓";color:var(--ok);font-weight:700}
+
+main{max-width:900px;margin:0 auto;padding:24px 18px 60px}
+section.page{display:none}
+section.page.on{display:block;animation:pop .35s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* chapter cover */
+.lead{background:var(--sheet);border:2.5px solid var(--c);border-radius:24px;overflow:hidden;margin-bottom:24px;box-shadow:6px 6px 0 var(--c)}
+.lead .band{background:var(--c);color:var(--on-ink);padding:16px 22px 14px;display:flex;align-items:center;gap:14px}
+.lead .band .big{font-size:42px;line-height:1;background:var(--sheet);border-radius:18px;width:62px;height:62px;display:grid;place-items:center;flex-shrink:0;transform:rotate(-5deg)}
+.lead .band .period{font-size:13.5px;font-weight:700;opacity:.92}
+.lead .band h2{font-size:29px}
+.lead .body{padding:18px 22px 20px}
+.lead .body>p{color:var(--ink-2);max-width:64ch}
+.goal{margin-top:14px;display:flex;gap:8px;align-items:flex-start;font-size:15px;font-weight:700;background:var(--cs);border-radius:12px;padding:10px 14px}
+.tip{display:flex;gap:10px;align-items:flex-end;margin-top:14px}
+.tip .owl{font-size:34px;line-height:1;flex-shrink:0}
+.tip p{background:var(--bg);border:2px solid var(--rule);border-radius:16px 16px 16px 4px;padding:9px 14px;font-size:14.5px;color:var(--ink)}
+
+.block{background:var(--sheet);border:2px solid var(--rule);border-radius:20px;padding:22px;margin-bottom:20px}
+.block h3{font-size:23px;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:4px;background:var(--c);color:var(--on-ink);border-radius:999px;padding:3px 12px 2px;font-size:15px}
+.block .sub{color:var(--ink-2);font-size:15px;margin-bottom:14px;max-width:66ch}
+.note{font-size:14.5px;background:var(--school-soft);border-radius:12px;padding:10px 14px;margin-top:12px}
+
+/* school ⇄ democracy pair */
+.link{display:grid;grid-template-columns:1fr 54px 1fr;margin:14px 0}
+.side{border-radius:18px;padding:14px 16px;font-size:15.5px}
+.side .tag{font-family:'Jua',sans-serif;font-size:16px;margin-bottom:4px;display:block}
+.side.s{background:var(--school-soft);border:2.5px solid var(--school)}
+.side.d{background:var(--cs);border:2.5px solid var(--c)}
+.wire{position:relative}
+.wire::before{content:"";position:absolute;left:2px;right:2px;top:50%;border-top:3px dotted var(--ink-2)}
+.wire::after{content:"🔗";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--sheet);border:2px solid var(--rule);font-size:17px;width:36px;height:36px;display:grid;place-items:center;border-radius:50%}
+@media (max-width:640px){
+  .link{grid-template-columns:1fr;grid-template-rows:auto 44px auto}
+  .wire::before{left:50%;right:auto;top:2px;bottom:2px;border-top:none;border-left:3px dotted var(--ink-2)}
+}
+
+/* dialogue */
+.talk{display:flex;flex-direction:column;gap:10px}
+.say{display:flex;gap:8px;align-items:flex-end;max-width:90%}
+.say .face{font-size:30px;line-height:1;flex-shrink:0}
+.say p{padding:10px 14px;border-radius:18px;font-size:15.5px;line-height:1.6}
+.say.a p{background:var(--blue-s);border-bottom-left-radius:4px}
+.say.b{align-self:flex-end;flex-direction:row-reverse}
+.say.b p{background:var(--pink-s);border-bottom-right-radius:4px}
+
+/* forms */
+label.q{display:block;font-weight:700;font-size:16px;margin:18px 0 8px}
+label.q::before{content:"✏️ "}
+textarea,input[type=text],input[type=number],select{width:100%;background:var(--bg);border:2px solid var(--rule);border-radius:14px;padding:12px 14px;font-size:15.5px;line-height:1.6}
+textarea{resize:vertical;min-height:92px}
+textarea:focus,input:focus,select:focus{border-color:var(--c,var(--blue));outline:none;background:var(--sheet)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--rule);background:var(--sheet);border-radius:999px;padding:8px 15px;cursor:pointer;font-size:15px;line-height:1.4;text-align:left;transition:transform .12s}
+.chip:hover{border-color:var(--c,var(--ink))}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{background:var(--c,var(--ink));border-color:var(--c,var(--ink));color:var(--on-ink);font-weight:700}
+.chip.big{border-radius:16px;padding:13px 16px;width:100%}
+.btn{border:none;background:var(--ink);color:var(--on-ink);border-radius:14px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:15.5px;box-shadow:0 3px 0 var(--ink-2);transition:transform .1s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink-2)}
+.btn.ghost{background:var(--sheet);color:var(--ink);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink)}
+.btn.color{background:var(--c);box-shadow:0 3px 0 var(--ink)}
+.btn.kakao{background:var(--kakao);color:var(--kakao-ink);box-shadow:0 3px 0 #C9B500}
+.btn.next{display:block;margin:8px 0 0 auto;background:var(--c);font-size:16.5px;padding:14px 22px;box-shadow:0 4px 0 var(--ink)}
+.row-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px;align-items:center}
+
+/* sorting tasks */
+.task{display:flex;flex-direction:column;gap:12px}
+.item{border:2px solid var(--rule);border-radius:16px;padding:14px;background:var(--bg);transition:background .2s,border-color .2s}
+.item .scene{font-size:15.5px;margin-bottom:10px;font-weight:500;display:flex;gap:8px}
+.item .scene::before{content:"🏫";flex-shrink:0}
+.item.right{border-color:var(--ok);background:var(--ok-s)}
+.item.wrong{border-color:var(--pen);background:var(--pen-s)}
+.fb{font-size:14.5px;margin-top:10px;display:none}
+.item.right .fb,.item.wrong .fb{display:block}
+.item.right .fb b{color:var(--ok)}
+.item.wrong .fb b{color:var(--pen)}
+.score{font-family:'Jua',sans-serif;font-size:20px;color:var(--c);margin-right:auto}
+
+/* institution cards */
+.inst{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0 6px}
+.inst>div{border:2.5px solid var(--c);border-radius:18px;padding:14px;background:var(--cs);position:relative}
+.inst .ic{font-size:30px;line-height:1;display:block;margin-bottom:6px}
+.inst h4{font-size:21px;margin:0 0 4px;color:var(--c)}
+.inst p{font-size:14.5px}
+.inst .kr{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--sheet);border:1.5px solid var(--c)}
+@media (max-width:640px){.inst{grid-template-columns:1fr}}
+
+/* summary sentence */
+.sentence{font-size:18.5px;line-height:2.4;background:var(--cs);border-radius:16px;padding:12px 18px}
+.sentence input{display:inline-block;width:6.5em;padding:2px 8px;text-align:center;font-weight:700;border:none;border-bottom:3px solid var(--c);border-radius:0;background:var(--sheet)}
+.sentence input.ok{border-color:var(--ok);color:var(--ok)}
+.sentence input.no{border-color:var(--pen);color:var(--pen)}
+
+/* map */
+.mapgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mcard{border:2px solid var(--rule);border-radius:18px;padding:14px;background:var(--bg)}
+.mcard h4{font-size:20px;color:var(--c)}
+.mcard p{font-size:13.5px;color:var(--ink-2);margin:2px 0 8px}
+.mcard textarea{min-height:72px;font-size:14.5px;background:var(--sheet)}
+.mcard.filled{border-color:var(--c)}
+@media (max-width:640px){.mapgrid{grid-template-columns:1fr}}
+
+/* quiz */
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.qhead .count{font-family:'Jua',sans-serif;font-size:19px}
+.qdots{display:flex;gap:5px}
+.qdots i{width:11px;height:11px;border-radius:50%;background:var(--rule)}
+.qdots i.r{background:var(--ok)}
+.qdots i.w{background:var(--pen)}
+.qdots i.now{background:var(--c);transform:scale(1.3)}
+.qtext{font-size:18.5px;font-weight:700;margin:14px 0}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{text-align:left;border:2px solid var(--rule);background:var(--bg);border-radius:14px;padding:13px 15px;cursor:pointer;font-size:16px}
+.opt:hover:not(:disabled){border-color:var(--c)}
+.opt.right{border-color:var(--ok);background:var(--ok-s);font-weight:700}
+.opt.wrong{border-color:var(--pen);background:var(--pen-s)}
+.opt:disabled{cursor:default}
+.opts.ox{flex-direction:row}
+.opts.ox .opt{flex:1;text-align:center;font-family:'Jua',sans-serif;font-size:34px;padding:12px}
+.explain{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--cs);font-size:15.5px}
+.result{text-align:center;padding:16px 10px}
+.result .big{font-family:'Jua',sans-serif;font-size:68px;color:var(--pen);line-height:1;transform:rotate(-6deg);display:inline-block;border:5px solid var(--pen);border-radius:24px;padding:10px 22px}
+
+/* portfolio sheet */
+.sheet{background:var(--sheet);color:var(--ink);border:2.5px solid var(--ink);border-radius:18px;padding:26px}
+.sheet .top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2.5px solid var(--ink);padding-bottom:12px;margin-bottom:12px;flex-wrap:wrap}
+.sheet h2{font-size:28px}
+.sheet .meta{font-size:13.5px;color:var(--ink-2);text-align:right}
+.sheet h4{font-size:20px;margin:18px 0 6px}
+.sheet .ans{font-size:14px;white-space:pre-wrap;border-left:4px solid var(--marker);padding:2px 0 2px 12px}
+.sheet table{width:100%;border-collapse:collapse;font-size:14px}
+.sheet th,.sheet td{border:1px solid var(--rule);padding:8px 10px;text-align:left;vertical-align:top}
+.sheet th{background:var(--purple-s);color:var(--purple);width:30%}
+.tablewrap{overflow-x:auto}
+.stamp{display:inline-block;border:3px solid var(--pen);color:var(--pen);font-family:'Jua',sans-serif;font-size:20px;padding:4px 14px;border-radius:10px;transform:rotate(-5deg)}
+.checklist{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.checklist span{font-size:14px;border-radius:999px;padding:5px 13px;border:2px solid var(--rule);background:var(--sheet)}
+.checklist span.ok{border-color:var(--ok);color:var(--ok);font-weight:700}
+
+/* share */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.steps div{background:var(--cs);border-radius:16px;padding:12px 14px;font-size:14.5px}
+.steps b{font-family:'Jua',sans-serif;font-weight:400;font-size:18px;display:block;color:var(--c)}
+@media (max-width:640px){.steps{grid-template-columns:1fr}}
+.share-wrap{display:flex;justify-content:center;padding:6px 0}
+.scard{width:420px;max-width:100%;background:var(--sheet);color:var(--ink);border:3px solid var(--ink);border-radius:26px;overflow:hidden}
+.scard .hd{background:var(--teal);color:#FFFFFF;padding:16px 20px}
+.scard .hd small{font-size:12.5px;opacity:.9;display:block}
+.scard .hd h4{font-size:24px}
+.scard .bd{padding:16px 20px 18px}
+.scard .who2{font-weight:700;font-size:16px}
+.scard .who2 span{display:block;font-size:13px;color:var(--ink-2);font-weight:400}
+.scard .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.scard .stats div{background:var(--teal-s);border-radius:14px;padding:8px 6px;text-align:center;font-size:12.5px}
+.scard .stats b{font-family:'Jua',sans-serif;font-weight:400;font-size:24px;display:block;color:var(--teal);line-height:1.2}
+.scard .pairs{display:flex;flex-direction:column;gap:7px}
+.scard .pair{font-size:13.5px;line-height:1.5;border-radius:12px;background:var(--school-soft);padding:7px 11px}
+.scard .pair b{color:var(--purple)}
+.scard .ft{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12.5px;color:var(--ink-2)}
+.empty{font-size:14px;color:var(--ink-2);text-align:center;padding:10px}
+#shareText{min-height:160px;font-size:14px}
+.copied{font-size:14px;color:var(--ok);font-weight:700}
+
+/* modal + toast */
+.modal{position:fixed;inset:0;background:rgba(10,14,30,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.modal.on{display:flex}
+.modal .box{background:var(--sheet);border:3px solid var(--ink);border-radius:24px;padding:24px;max-width:440px;width:100%;max-height:100%;overflow:auto;box-shadow:6px 6px 0 var(--marker)}
+.modal .hi{font-size:46px;line-height:1;text-align:center}
+.modal h2{font-size:28px;margin:6px 0 2px;text-align:center}
+.modal p{color:var(--ink-2);font-size:14.5px;margin-bottom:8px;text-align:center}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.f label{display:block;font-size:13.5px;font-weight:700;margin:10px 0 4px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--on-ink);padding:11px 20px;border-radius:999px;font-size:15px;font-weight:700;opacity:0;transition:.25s;z-index:60;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:12.5px;color:var(--ink-2);padding:0 20px 30px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){
+  .brand small{display:none}.brand h1{font-size:18px}.stars .lbl{display:none}.stars i{font-size:13px}.stars{gap:1px}
+  .brand h1 .full{display:none}.brand h1 .short{display:inline}
+  .lead .band h2{font-size:24px}.lead .band .big{width:52px;height:52px;font-size:34px}
+  .block{padding:17px}.sheet{padding:18px}.block h3{font-size:21px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="logo" aria-hidden="true">🏫</div>
+    <div class="brand"><h1><span class="full">우리 학교 민주주의 연결 노트</span><span class="short">연결 노트</span></h1><small>9-③ 현대 민주주의의 특징과 발전을 위한 노력</small></div>
+    <div class="stars" id="stars" aria-label="완료한 차시"></div>
+    <button class="who" id="who" type="button">이름 입력</button>
+  </div>
+  <nav id="nav" role="tablist"></nav>
+</header>
+
+<main>
+
+<!-- 1 -->
+<section class="page" id="p1" data-c="blue">
+  <div class="lead">
+    <div class="band"><div class="big">🏛️</div><div><div class="period">1차시 · 교과서 162쪽</div><h2>현대 민주주의는 왜 대표를 뽑을까?</h2></div></div>
+    <div class="body">
+      <p>서윤이는 민주주의가 ‘국민이 스스로 다스리는 정치’라고 배웠지만, 정책 결정에 직접 참여하지 않는 국민이 대부분인데 왜 민주주의라고 하는지 궁금해졌어요.</p>
+      <div class="goal">🎯 현대 민주주의가 지닌 특징과 한계를 살펴보고 과제를 검토할 수 있다.</div>
+      <div class="tip"><span class="owl">🦉</span><p>우리 학교 대의원 회의를 떠올려 봐. 거기에 답이 숨어 있어!</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>👀 학교와 나라, 같은 구조 찾기</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>학교 일을 학생 전원이 모여 정하면 좋겠지만, 학생 수가 많아 학급 회장이 반 대표로 <b>대의원 회의</b>에 참석해 우리 반 의견을 전달해요.</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>영토와 인구가 커져 모두 모이기 어렵기 때문에, 선거로 뽑은 대표가 시민의 뜻을 실현하는 <span class="hl">대의제(간접 민주주의)</span>를 실시해요.</div>
+    </div>
+    <p class="note">💡 국민이 대표자를 뽑고, 그 대표를 다시 선거로 통제할 수 있으니 현대 국가도 민주주의라고 할 수 있어요.</p>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 1</span>이 장면은 어떤 특징과 연결될까?</h3>
+    <p class="sub">학교 장면을 읽고 알맞은 특징을 고른 뒤 ‘확인하기’를 눌러요.</p>
+    <div class="task" data-task="features"></div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 2</span>밸런스 게임</h3>
+    <p class="sub">매일 전교생이 강당에 모여 모든 안건을 직접 투표하는 학교 vs 대표를 뽑아 맡기는 학교. 어디에 다니고 싶나요?</p>
+    <div class="chips" data-pick="balance">
+      <button class="chip big" type="button" data-v="전교생이 모두 모여 직접 결정하는 학교">🙋 전교생이 모두 모여 직접 결정하는 학교</button>
+      <button class="chip big" type="button" data-v="대표를 뽑아 맡기는 학교">🗳️ 대표를 뽑아 맡기는 학교</button>
+    </div>
+    <label class="q" for="f-balanceWhy">그렇게 고른 까닭은? 시간, 학생 수, 의견 반영을 생각해 봐요.</label>
+    <textarea id="f-balanceWhy" data-key="balanceWhy" placeholder="예: 전교생이 매일 모이면 수업 시간이 줄어들고…"></textarea>
+    <label class="q" for="f-p1sum">내 말로 정리하기: 현대 국가가 대의제를 하는 까닭은?</label>
+    <textarea id="f-p1sum" data-key="p1sum" placeholder="두세 문장으로 써 보세요."></textarea>
+  </div>
+  <button class="btn next" type="button" data-go="p2">다음: 한계와 과제 🧩</button>
+</section>
+
+<!-- 2 -->
+<section class="page" id="p2" data-c="coral">
+  <div class="lead">
+    <div class="band"><div class="big">🧩</div><div><div class="period">1차시 · 교과서 162–163쪽</div><h2>대표에게 맡기면 생기는 문제</h2></div></div>
+    <div class="body">
+      <p>대표자가 시민의 의사를 대신하다 보면 국민의 의견이 제대로 반영되지 않을 수 있어요. 그래서 오늘날 대부분의 나라는 직접 민주주의 요소를 일부 들여와 간접 민주주의의 약점을 보완해요.</p>
+      <div class="tip"><span class="owl">🦉</span><p>우리 학교에서도 비슷한 일, 본 적 있지 않아?</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 3</span>우리 학교 속 현대 민주주의의 한계</h3>
+    <p class="sub">한계 네 가지: 대표의 결정과 구성원 뜻의 불일치, 모두를 고르게 대표하기 어려움, 정치적 무관심, 공익을 생각하지 않는 참여.</p>
+    <div class="task" data-task="limits"></div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 4</span>과제를 학교에서 실천한다면</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>다리를 다쳐 휠체어를 탄 친구가 강당에 있는 학생회 선거 투표소까지 가기 어렵다면?</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>선거 날 이동이 어려운 장애인에게 투표소까지 차량을 지원해 <span class="hl">사회적 약자의 정치 참여</span>를 넓혀요.</div>
+    </div>
+    <label class="q" for="f-access">우리 학교는 이 친구의 투표권을 어떻게 지켜 줄 수 있을까요?</label>
+    <textarea id="f-access" data-key="access" placeholder="예: 교실로 이동식 투표함을 가져간다…"></textarea>
+    <label class="q" for="f-task1">학급 회의에 무관심한 친구들이 참여하게 하려면? (일상 속 정치)</label>
+    <textarea id="f-task1" data-key="task1"></textarea>
+    <label class="q" for="f-task2">학생회에 1학년 목소리가 잘 반영되려면 선거 방식을 어떻게 바꿀까요? (선거 제도 개선)</label>
+    <textarea id="f-task2" data-key="task2"></textarea>
+  </div>
+
+  <div class="block">
+    <h3>📱 클릭으로 하는 정치 참여, 클릭티비즘</h3>
+    <div class="talk">
+      <div class="say a"><span class="face">🧑‍🎓</span><p>클릭티비즘은 ‘클릭’과 ‘액티비즘’을 합친 말이야. 정치·사회 운동을 온라인에서 지지하는 행동이지.</p></div>
+      <div class="say b"><span class="face">👩‍🎓</span><p>클릭 하나에 너무 큰 의미를 둔 거 아냐? 고민 없이 클릭만 하면 게으른 참여 같아.</p></div>
+      <div class="say a"><span class="face">🧑‍🎓</span><p>그래도 SNS가 튀니지 재스민 혁명처럼 시민운동을 키우기도 했어. 가볍게 끝나지 않게 하는 게 중요해!</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 5</span>온라인 참여, 좋은 사례? 아쉬운 사례?</h3>
+    <div class="task" data-task="click"></div>
+    <label class="q">학생 청원 글에 ‘동의’를 누르는 것은 진정한 참여일까요?</label>
+    <div class="chips" data-pick="clickStance">
+      <button class="chip" type="button" data-v="진정한 참여다">👍 진정한 참여다</button>
+      <button class="chip" type="button" data-v="게으른 참여에 그칠 수 있다">✋ 게으른 참여에 그칠 수 있다</button>
+    </div>
+    <label class="q" for="f-clickWhy">까닭과, 온라인 참여가 가벼운 관심에 그치지 않게 하는 방법</label>
+    <textarea id="f-clickWhy" data-key="clickWhy"></textarea>
+  </div>
+  <button class="btn next" type="button" data-go="p3">다음: 발전을 위한 제도 🗳️</button>
+</section>
+
+<!-- 3 -->
+<section class="page" id="p3" data-c="green">
+  <div class="lead">
+    <div class="band"><div class="big">🗳️</div><div><div class="period">2차시 · 교과서 164쪽</div><h2>대의제를 돕는 제도, 학교에서 해 보기</h2></div></div>
+    <div class="body">
+      <p>대의제를 잘 운영하면서, 그 한계를 메우는 직접 민주주의 제도와 전자 민주주의를 함께 활용해요.</p>
+      <div class="goal">🎯 우리나라 민주주의 발전에 필요한 제도와 시민의 역할에 대해 토의할 수 있다.</div>
+      <div class="tip"><span class="owl">🦉</span><p>국가의 제도를 우리 학교 규칙으로 바꿔서 직접 설계해 보자!</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>📌 직접 민주주의 요소 세 가지</h3>
+    <div class="inst">
+      <div><span class="ic">🗳️</span><h4>국민 투표</h4><p>헌법 개정안, 외교·국방·통일 등 나라의 중요한 일을 국민이 직접 투표로 결정</p><span class="kr">🇰🇷 실시</span></div>
+      <div><span class="ic">📝</span><h4>국민 발안</h4><p>일정 수의 국민이 헌법 개정안이나 법률안을 의회에 제출</p><span class="kr">🇰🇷 실시하지 않음</span></div>
+      <div><span class="ic">🔔</span><h4>국민 소환</h4><p>선출된 대표를 임기가 끝나기 전에 국민의 뜻으로 파면</p><span class="kr">🇰🇷 지방의 주민 소환만</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 6</span>국민 투표 ⇄ 전교생 투표</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>‘교복 대신 생활복 등교’처럼 전교생 모두에게 영향을 주는 일을 전교생 투표로 결정해요.</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>나라의 중요한 일은 대표가 아닌 <span class="hl">국민이 직접 투표</span>로 결정해요.</div>
+    </div>
+    <label class="q" for="f-vote">전교생 투표로 정해야 할 만큼 중요한 우리 학교 안건과 그 까닭은?</label>
+    <textarea id="f-vote" data-key="vote"></textarea>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 7</span>국민 발안 ⇄ 학생 서명으로 규칙 개정안 내기</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>일정 수 이상 학생이 서명하면 학생이 만든 규칙 개정안을 학생회와 학교에 낼 수 있어요.</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>일정 수의 국민이 법률안을 <span class="hl">의회에 직접 제출</span>해요. 우리나라는 아직 실시하지 않아요.</div>
+    </div>
+    <label class="q" for="f-initiative">내가 제안할 학교 규칙 개정안</label>
+    <input type="text" id="f-initiative" data-key="initiative" placeholder="예: 점심시간 운동장 학년별 돌아가며 쓰기">
+    <label class="q" for="f-initiativeHow">서명은 몇 명 이상 받아야 할까요? 너무 적거나 많으면 어떤 문제가 생길까요?</label>
+    <textarea id="f-initiativeHow" data-key="initiativeHow"></textarea>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 8</span>국민 소환 ⇄ 전교 회장 소환</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>뽑힌 전교 회장이 역할을 제대로 하지 않을 때, 임기가 끝나기 전에 전교생 투표로 물러나게 해요.</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>선출된 대표를 <span class="hl">임기 중 파면</span>해요. 우리나라는 지방 자치에서 주민 소환만 해요.</div>
+    </div>
+    <label class="q">소환을 청구할 만큼 중요한 까닭은 무엇일까요? 하나를 골라요.</label>
+    <div class="chips" data-pick="recall">
+      <button class="chip big" type="button" data-v="핵심 공약을 의견 수렴 없이 모두 취소했을 때">😤 핵심 공약을 의견 수렴 없이 모두 취소했을 때</button>
+      <button class="chip big" type="button" data-v="학생회 예산을 투명하지 않게 쓰거나 맡은 일을 계속 하지 않을 때">💸 학생회 예산을 투명하지 않게 쓰거나 맡은 일을 계속 하지 않을 때</button>
+      <button class="chip big" type="button" data-v="회의에서 한 번 내 의견과 다른 결정을 했을 때">🙅 회의에서 한 번 내 의견과 다른 결정을 했을 때</button>
+    </div>
+    <label class="q" for="f-recallWhy">고른 까닭과, 소환을 너무 쉽게 쓰면 생길 수 있는 문제</label>
+    <textarea id="f-recallWhy" data-key="recallWhy"></textarea>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 9</span>전자 민주주의 ⇄ 학교 온라인 건의 게시판</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>학교 누리집 건의 게시판이나 온라인 설문으로 급식, 시설, 행사에 대한 의견을 내요.</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>시민이 정보 매체로 정책 결정에 참여하거나 정책 결정자와 소통하는 <span class="hl">전자 민주주의</span>. 온라인 국민 참여 포털이 대표적이에요.</div>
+    </div>
+    <label class="q" for="f-edemo">온라인 건의 게시판의 좋은 점과, 편향되거나 질 낮은 참여를 막는 우리 학교 규칙</label>
+    <textarea id="f-edemo" data-key="edemo"></textarea>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 10</span>내가 청소년 특별 회의에 안건을 낸다면</h3>
+    <p class="sub">청소년 특별 회의는 청소년과 청소년 분야 전문가가 함께 청소년 정책을 제안하는 제도예요. 청소년 마음 건강 지원 프로그램처럼 실제로 시행된 정책도 있어요.</p>
+    <label class="q" for="f-youth">내가 내고 싶은 안건</label>
+    <textarea id="f-youth" data-key="youth" placeholder="예: 청소년 아르바이트생을 위한 무료 노무 상담"></textarea>
+    <label class="q" for="f-youth2">이처럼 민주주의 발전을 위해 도입할 수 있는 또 다른 제도는?</label>
+    <textarea id="f-youth2" data-key="youth2" placeholder="예: 혼자 사는 어르신이 주체가 되는 특별 회의"></textarea>
+  </div>
+  <button class="btn next" type="button" data-go="p4">다음: 시민의 역할 🙋</button>
+</section>
+
+<!-- 4 -->
+<section class="page" id="p4" data-c="purple">
+  <div class="lead">
+    <div class="band"><div class="big">🙋</div><div><div class="period">2차시 · 교과서 165쪽</div><h2>좋은 시민, 좋은 공론장</h2></div></div>
+    <div class="body">
+      <p>시민은 투표, 진정, 청원, 정당·이익 집단·시민 단체 활동으로 참여해요. 이런 참여가 충분한 <span class="hl">공론화</span>(어떤 문제를 여럿이 의논하는 대상이 되게 하는 것)를 거칠 때 공익과 권리가 커져요.</p>
+      <div class="tip"><span class="owl">🦉</span><p>학교에서도 우리는 매일 시민으로 참여하고 있어!</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 11</span>학교 속 시민 참여 방법 찾기</h3>
+    <p class="sub">학교 장면이 어떤 시민 참여 방법과 닮았는지 골라 보세요.</p>
+    <div class="task" data-task="methods"></div>
+  </div>
+
+  <div class="block">
+    <h3><span class="badge">활동 12</span>학생 공청회, 좋은 공론장일까?</h3>
+    <div class="link">
+      <div class="side s"><span class="tag">🏫 우리 학교에서</span>‘교내 휴대 전화 사용 규칙’을 바꾸기 전에 학생, 선생님, 학부모 대표가 모여 의견을 듣는 학생 공청회를 열어요.</div>
+      <div class="wire" aria-hidden="true"></div>
+      <div class="side d"><span class="tag">🏛️ 현대 민주주의에서</span>영향이 큰 안건을 심의하기 전에 학자, 경험자, 이해관계인의 의견을 듣는 공개회의인 <span class="hl">공청회</span>를 열어요.</div>
+    </div>
+    <p class="sub">하버마스는 공론장을 ‘구성원 모두의 이익에 관한 합의를 끌어내려고 토의하는 곳’이라고 했어요. 민주적 공론장은 보편적 이익, 합리적 토론, 사회적 합의를 갖춰요. 공청회에서 나온 말을 판정해 봐요.</p>
+    <div class="task" data-task="forum"></div>
+    <label class="q" for="f-forum">우리 학교에 민주적인 공론장을 만들려면 필요한 제도와 나의 역할은?</label>
+    <textarea id="f-forum" data-key="forum" placeholder="제도: 공청회 일정을 미리 알리기…  나의 역할: 반대 의견도 끝까지 듣기…"></textarea>
+  </div>
+  <button class="btn next" type="button" data-go="p5">다음: 정리와 퀴즈 ✏️</button>
+</section>
+
+<!-- 5 -->
+<section class="page" id="p5" data-c="orange">
+  <div class="lead">
+    <div class="band"><div class="big">✏️</div><div><div class="period">정리</div><h2>한 문장 정리, 연결 지도, 퀴즈!</h2></div></div>
+    <div class="body">
+      <p>오늘 배운 개념마다 우리 학교 장면을 직접 써 보고, 형성평가로 확인해요.</p>
+      <div class="tip"><span class="owl">🦉</span><p>마지막 단계야. 퀴즈까지 끝내면 별 다섯 개를 모두 모을 수 있어!</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>📝 한 문장으로 정리해요</h3>
+    <p class="sentence">현대 민주주의의 특징인 <input type="text" id="blank1" data-key="blank1" aria-label="첫 번째 빈칸" autocomplete="off">은/는 대표자의 결정이 국민의 의사와 완전히 일치하지 않을 수 있다는 점, 정치적 무관심 등 여러 한계가 있어 지속적인 제도 보완과 <input type="text" id="blank2" data-key="blank2" aria-label="두 번째 빈칸" autocomplete="off">의 관심과 참여가 필요하다.</p>
+    <div class="row-btns"><span class="score" id="blankScore"></span><button class="btn ghost" type="button" id="checkBlank">정답 확인</button></div>
+  </div>
+
+  <div class="block">
+    <h3>🗺️ 나만의 연결 지도</h3>
+    <p class="sub">개념마다 우리 학교에서 볼 수 있는 장면을 하나씩 써 보세요. 앞에서 쓴 예와 달라도 좋아요. 포트폴리오와 공유 카드에 들어가요.</p>
+    <div class="mapgrid" id="mapgrid"></div>
+  </div>
+
+  <div class="block" id="quizBlock">
+    <h3>🏁 형성평가 10문항</h3>
+    <div id="quiz"></div>
+  </div>
+  <button class="btn next" type="button" data-go="p6">포트폴리오 보기 📁</button>
+</section>
+
+<!-- 6 -->
+<section class="page" id="p6" data-c="pink">
+  <div class="lead">
+    <div class="band"><div class="big">📁</div><div><div class="period">제출</div><h2>나의 학습 포트폴리오</h2></div></div>
+    <div class="body">
+      <p>지금까지 쓴 내용이 자동으로 모였어요. 확인한 뒤 PDF로 저장하거나, 공유하기 탭에서 단톡방에 올려요.</p>
+      <div class="row-btns" style="justify-content:flex-start">
+        <button class="btn color" type="button" id="pdfBtn">📄 PDF로 저장</button>
+        <button class="btn kakao" type="button" data-go="p7">💬 단톡방에 공유하러 가기</button>
+      </div>
+    </div>
+  </div>
+  <div class="checklist" id="checklist"></div>
+  <div id="sheetWrap"></div>
+  <div class="row-btns"><button class="btn ghost" type="button" id="resetBtn">처음부터 다시 하기</button></div>
+</section>
+
+<!-- 7 -->
+<section class="page" id="p7" data-c="teal">
+  <div class="lead">
+    <div class="band"><div class="big">💬</div><div><div class="period">공유</div><h2>단톡방에 공유하기</h2></div></div>
+    <div class="body">
+      <p>카카오톡 단톡방에는 이미지가 가장 잘 보여요. 요약 카드를 사진으로 저장해서 올리거나, 글로 복사해 붙여 넣어요.</p>
+      <div class="steps">
+        <div><b>① 저장하기</b>아래에서 ‘요약 카드 이미지 저장’ 또는 ‘전체 포트폴리오 이미지 저장’을 눌러요.</div>
+        <div><b>② 단톡방 열기</b>우리 반 카카오톡 단톡방에서 ＋ 버튼을 누르고 ‘앨범’이나 ‘파일’을 골라요.</div>
+        <div><b>③ 보내기</b>저장한 이미지를 골라 보내요. 이름이 잘 보이는지 꼭 확인해요.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>🖼️ 요약 카드</h3>
+    <p class="sub">내 이름, 점수, 연결 지도가 한 장에 들어가요.</p>
+    <div class="share-wrap"><div class="scard print-light" id="scard"></div></div>
+    <div class="row-btns" style="justify-content:center">
+      <button class="btn kakao" type="button" id="imgCardBtn">📸 요약 카드 이미지 저장</button>
+      <button class="btn ghost" type="button" id="imgFullBtn">🗂️ 전체 포트폴리오 이미지 저장</button>
+      <button class="btn ghost" type="button" id="shareBtn" hidden>📤 바로 공유</button>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>📋 글로 복사해서 붙여 넣기</h3>
+    <p class="sub">이미지를 올리기 어렵다면, 아래 글을 복사해 단톡방 입력창에 붙여 넣어요.</p>
+    <textarea id="shareText" readonly></textarea>
+    <div class="row-btns"><span class="copied" id="copied"></span><button class="btn kakao" type="button" id="copyBtn">📋 글 복사하기</button></div>
+  </div>
+</section>
+
+</main>
+<footer>중학교 사회 1 · 9. 민주주의와 시민 · 작성한 내용은 이 기기의 브라우저에 자동으로 저장돼요.</footer>
+
+<div class="modal" id="onboard" role="dialog" aria-modal="true" aria-labelledby="ob-title">
+  <form class="box f" id="obForm">
+    <div class="hi">🦉</div>
+    <h2 id="ob-title">반가워요!</h2>
+    <p>포트폴리오와 공유 카드에 들어갈 정보를 입력해 주세요.</p>
+    <label for="ob-school">학교</label>
+    <input type="text" id="ob-school" required placeholder="예: 인천중학교">
+    <div class="grid3">
+      <div><label for="ob-grade">학년</label><select id="ob-grade"><option>1</option><option>2</option><option>3</option></select></div>
+      <div><label for="ob-class">반</label><input type="number" id="ob-class" min="1" max="20" required></div>
+      <div><label for="ob-num">번호</label><input type="number" id="ob-num" min="1" max="50" required></div>
+    </div>
+    <label for="ob-name">이름</label>
+    <input type="text" id="ob-name" required placeholder="예: 김서윤">
+    <div class="row-btns"><button class="btn" type="submit">🚀 시작하기</button></div>
+  </form>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const PAGES=[
+  {id:'p1',e:'🏛️',t:'특징',c:'blue'},
+  {id:'p2',e:'🧩',t:'한계와 과제',c:'coral'},
+  {id:'p3',e:'🗳️',t:'제도',c:'green'},
+  {id:'p4',e:'🙋',t:'시민의 역할',c:'purple'},
+  {id:'p5',e:'✏️',t:'정리·퀴즈',c:'orange'},
+  {id:'p6',e:'📁',t:'포트폴리오',c:'pink'},
+  {id:'p7',e:'💬',t:'공유하기',c:'teal'}
+];
+const TASKS={
+  features:{opts:['영토·인구의 확대','이해관계 복잡·전문성 필요','대표를 통한 의사 실현(대의제)'],items:[
+    {s:'전교생 700명이 매주 강당에 모여 회의를 하면 수업 시간이 부족해진다.',a:0,why:'국가의 영토와 인구가 커져 모두 한곳에 모이기 어려워진 것과 같아요.'},
+    {s:'급식, 시설, 동아리 예산처럼 안건이 많고 복잡해 그 일을 잘 아는 학생회 부서가 맡는다.',a:1,why:'개인의 이해관계가 복잡해져 전문성을 갖춘 사람이 필요해진 것과 같아요.'},
+    {s:'학급 회장이 반 친구들 의견을 모아 대의원 회의에서 전달한다.',a:2,why:'선거로 뽑힌 대표가 구성원의 뜻을 실현하는 대의제의 모습이에요.'}
+  ]},
+  limits:{opts:['대표의 결정 ≠ 구성원의 뜻','고르게 대표하기 어려움','정치적 무관심','공익을 생각하지 않는 참여'],items:[
+    {s:'회장이 반 친구들과 상의하지 않고 대의원 회의에서 ‘체육 대회 축소’에 찬성했다.',a:0,why:'대표자의 결정이 구성원의 의사와 일치하지 않을 수 있다는 한계예요.'},
+    {s:'학생회 임원이 모두 3학년이라 1학년의 불편함이 회의에서 거의 다뤄지지 않는다.',a:1,why:'모든 학년·집단의 의견을 고르게 대표하기 어렵다는 한계예요.'},
+    {s:'학급 회의 시간에 “어차피 회장이 알아서 하겠지.” 하며 엎드려 있는 친구들이 많다.',a:2,why:'시민이 직접 결정하지 않다 보니 무관심이 일상화되는 한계예요.'},
+    {s:'한 동아리가 다른 동아리 사정은 생각하지 않고 자기 예산만 늘려 달라고 단체로 요구했다.',a:3,why:'공공의 이익을 고려하지 않고 자기 이익에만 집중하는 바람직하지 않은 참여예요.'}
+  ]},
+  click:{opts:['긍정적 사례','부정적 사례'],items:[
+    {s:'급식 만족도 온라인 설문에 구체적인 개선 의견을 남겨 메뉴가 바뀌었다.',a:0,why:'온라인 참여가 의견 형성과 실제 변화로 이어졌어요.'},
+    {s:'내용도 읽지 않고 친구가 공유한 학생 청원 링크에 ‘좋아요’만 누르고 잊어버렸다.',a:1,why:'진지한 고민 없이 클릭만 하는 가볍고 일시적인 참여예요.'},
+    {s:'확인되지 않은 선생님 관련 소문을 재미로 단톡방에 퍼 날랐다.',a:1,why:'검증 없이 퍼 나르면 왜곡된 정보를 퍼뜨리게 돼요.'},
+    {s:'SNS로 소식이 퍼져 시민들의 민주화 시위로 이어진 튀니지 재스민 혁명',a:0,why:'SNS가 실시간 소통 창구가 되어 인권 의식을 높이고 독재를 끝냈어요.'}
+  ]},
+  methods:{opts:['투표','청원','진정','정당 활동','이익 집단 활동','시민 단체 활동'],items:[
+    {s:'전교 회장 선거일에 후보 공약을 비교해 보고 한 표를 행사한다.',a:0,why:'대표를 뽑는 가장 기본적인 참여, 투표예요.'},
+    {s:'‘교복 규정 개정’을 요청하는 글을 학생 청원 게시판에 올리고 서명을 모은다.',a:1,why:'기관에 바라는 바를 문서로 요청하는 청원과 닮았어요.'},
+    {s:'고장 난 화장실 때문에 겪는 불편을 해결해 달라고 행정실에 요청한다.',a:2,why:'겪고 있는 피해나 불편을 해결해 달라고 요청하는 진정과 닮았어요.'},
+    {s:'생각이 같은 친구들이 선거 운동 팀을 꾸려 회장 후보를 내고 공약을 만든다.',a:3,why:'같은 정치적 생각을 가진 사람들이 후보를 내 권력을 얻으려는 정당 활동과 닮았어요.'},
+    {s:'축구부원들이 운동장 사용 시간을 늘려 달라고 함께 요구한다.',a:4,why:'특정 집단이 자신들의 이익을 위해 함께 목소리를 내는 이익 집단 활동과 닮았어요.'},
+    {s:'환경 동아리가 전교생을 대상으로 분리배출 캠페인을 벌인다.',a:5,why:'공익을 위해 자발적으로 활동하는 시민 단체 활동과 닮았어요.'}
+  ]},
+  forum:{opts:['좋은 공론장','바람직하지 않음'],items:[
+    {s:'“내 말이 무조건 맞아. 반대쪽 얘기는 들을 필요도 없어.”',a:1,why:'합리적 토론이 이루어지지 않아요.'},
+    {s:'“통학 거리가 먼 친구, 1학년, 운동부 입장도 들어 보자.”',a:0,why:'구성원 모두의 보편적 이익을 고려해요.'},
+    {s:'“다른 학교 규칙과 설문 결과를 근거로 조사해 왔어.”',a:0,why:'근거를 갖고 진지하게 토론하는 합리적 토론이에요.'},
+    {s:'“우리 반만 편하면 되지, 다른 반은 상관없어.”',a:1,why:'보편적 이익이 아니라 일부의 이익만 생각해요.'},
+    {s:'“양쪽 의견을 모아 점심시간에만 쓰는 절충안은 어때?”',a:0,why:'구성원의 사회적 합의를 끌어내려는 노력이에요.'}
+  ]}
+};
+
+const MAP=[
+  {k:'mapRep',t:'대의제',d:'대표를 뽑아 뜻을 실현'},
+  {k:'mapRef',t:'국민 투표',d:'중요한 일을 직접 투표로 결정'},
+  {k:'mapIni',t:'국민 발안',d:'일정 수의 국민이 법안 제출'},
+  {k:'mapRec',t:'국민 소환',d:'대표를 임기 중 파면'},
+  {k:'mapE',t:'전자 민주주의',d:'정보 매체로 정책 결정에 참여'},
+  {k:'mapPub',t:'공론장',d:'보편적 이익·합리적 토론·사회적 합의'}
+];
+
+const QUIZ=[
+  {q:'현대 국가 대부분이 간접 민주주의(대의제)를 실시하는 까닭으로 가장 알맞은 것은?',o:['국민의 정치 참여가 법으로 금지되어서','영토와 인구가 커져 모두 한곳에 모여 결정하기 어려워서','대표자는 실수를 하지 않아서','선거에 비용이 들지 않아서'],a:1,e:'영토와 인구 규모가 커지고 이해관계가 복잡해져 대표를 통해 시민의 뜻을 실현해요.'},
+  {q:'학급 회장이 반 대표로 대의원 회의에서 우리 반 의견을 전달하는 모습과 가장 닮은 제도는?',o:['대의제','국민 소환','국민 발안','클릭티비즘'],a:0,e:'구성원이 뽑은 대표가 뜻을 대신 전달하는 대의제의 모습이에요.'},
+  {q:'현대 민주주의의 한계로 보기 어려운 것은?',o:['대표자의 결정이 국민의 의사와 다를 수 있다.','모든 계층과 세대를 고르게 대표하기 어렵다.','정치적 무관심이 일상화될 수 있다.','국민이 대표자를 선거로 통제할 수 있다.'],a:3,e:'선거로 대표를 통제할 수 있다는 점은 현대 국가가 민주주의인 까닭이에요.'},
+  {q:'국정의 중요한 사항을 국민이 직접 투표로 결정하는 제도는?',o:['국민 소환','국민 투표','국민 발안'],a:1,e:'헌법 개정안, 국가 안위에 관한 중요 정책 등을 국민이 직접 결정하는 제도예요.'},
+  {q:'일정 수의 국민이 헌법 개정안이나 법률안 등을 의회에 제출하는 제도는?',o:['국민 소환','국민 투표','국민 발안'],a:2,e:'국민 발안이에요. 우리나라에서는 실시하지 않아요.'},
+  {q:'우리나라에서 국민 소환 제도가 실시되는 모습으로 옳은 것은?',o:['국회 의원을 국민 투표로 파면한다.','지방 자치 영역에서 주민 소환만 실시한다.','대통령을 주민 투표로 파면한다.','실시하는 영역이 전혀 없다.'],a:1,e:'우리나라는 지방 자치 영역에서 주민 소환만 실시해요.'},
+  {q:'시민이 정보 매체를 통해 정책 결정에 직접 참여하거나 정책 결정자와 소통하는 민주주의는?',o:['직접 민주주의','전자 민주주의','고대 아테네 민주주의','대표 민주주의'],a:1,e:'온라인 국민 참여 포털, 전자 공청회 등이 전자 민주주의의 예예요.'},
+  {q:'O/X: 현대 민주주의에서는 주권자인 시민의 정치적 무관심이 일상화된다는 한계가 있다.',o:['O','X'],a:0,e:'시민이 정책 결정에 직접 참여하지 않으면서 무관심이 일상화될 수 있어요.'},
+  {q:'민주적 공론장의 모습으로 알맞지 않은 것은?',o:['구성원의 보편적 이익을 고려한다.','근거를 들어 진지하게 토론한다.','합의를 끌어내기 위해 함께 노력한다.','내 말이 무조건 맞으니 상대와 대화하지 않는다.'],a:3,e:'민주적 공론장은 보편적 이익, 합리적 토론, 사회적 합의를 갖춰요.'},
+  {q:'O/X: 시민들은 공청회에서 공론화된 사회 문제를 논의하며 민주주의 발전을 위해 노력할 수 있다.',o:['O','X'],a:0,e:'공청회는 시민이 참여해 의견을 나누는 대표적인 공론장이에요.'}
+];
+
+
+/* ---------- state ---------- */
+const KEY='school-democracy-note-v1';
+const blank=()=>({tab:'p1',info:null,f:{},pick:{},sel:{},checked:{},quiz:{i:0,ans:[]}});
+let S=blank();
+try{const raw=localStorage.getItem(KEY);if(raw){S=Object.assign(blank(),JSON.parse(raw));}}catch(e){}
+let saveTimer=null;
+function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},250);}
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2200);}
+
+/* ---------- nav + stars ---------- */
+function progressOf(id){
+  const f=S.f,p=S.pick,c=S.checked;
+  if(id==='p1')return !!(c.features&&p.balance&&f.p1sum);
+  if(id==='p2')return !!(c.limits&&c.click&&f.task1);
+  if(id==='p3')return !!(f.vote&&f.initiative&&p.recall&&f.youth);
+  if(id==='p4')return !!(c.methods&&c.forum&&f.forum);
+  if(id==='p5')return S.quiz.i>=QUIZ.length;
+  return false;
+}
+function doneCount(){return PAGES.slice(0,5).filter(p=>progressOf(p.id)).length;}
+function renderNav(){
+  $('#nav').innerHTML=PAGES.map(p=>`<button role="tab" type="button" data-tab="${p.id}" aria-selected="${S.tab===p.id}" class="${progressOf(p.id)?'done':''}" style="--tc:var(--${p.c})"><span class="e">${p.e}</span>${p.t}</button>`).join('');
+  $$('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.tab));
+  const n=doneCount();
+  $('#stars').innerHTML=PAGES.slice(0,5).map(p=>`<i class="${progressOf(p.id)?'on':''}" title="${p.t}">⭐</i>`).join('')+`<span class="lbl">&nbsp;${n}/5</span>`;
+}
+function go(id){
+  S.tab=id;save();
+  $$('section.page').forEach(s=>s.classList.toggle('on',s.id===id));
+  renderNav();
+  if(id==='p6')renderPortfolio();
+  if(id==='p7')renderShare();
+  window.scrollTo({top:0});
+  const cur=$(`#nav button[data-tab="${id}"]`);if(cur)cur.scrollIntoView({inline:'center',block:'nearest'});
+}
+$$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+/* ---------- inputs ---------- */
+$$('[data-key]').forEach(el=>{
+  el.value=S.f[el.dataset.key]||'';
+  el.addEventListener('input',()=>{S.f[el.dataset.key]=el.value;save();});
+  el.addEventListener('change',renderNav);
+});
+$$('[data-pick]').forEach(group=>{
+  const k=group.dataset.pick;
+  const paint=()=>group.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',S.pick[k]===c.dataset.v));
+  group.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{S.pick[k]=c.dataset.v;save();paint();renderNav();});
+  paint();
+});
+
+/* ---------- sorting tasks ---------- */
+function renderTask(el){
+  const id=el.dataset.task,T=TASKS[id];S.sel[id]=S.sel[id]||[];
+  el.innerHTML=T.items.map((it,i)=>`
+    <div class="item" data-i="${i}">
+      <div class="scene">${it.s}</div>
+      <div class="chips">${T.opts.map((o,j)=>`<button class="chip" type="button" data-j="${j}" aria-pressed="${S.sel[id][i]===j}">${o}</button>`).join('')}</div>
+      <div class="fb"></div>
+    </div>`).join('')+`<div class="row-btns"><span class="score"></span><button class="btn color" type="button">✅ 확인하기</button></div>`;
+  el.querySelectorAll('.item').forEach(row=>{
+    const i=+row.dataset.i;
+    row.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+      S.sel[id][i]=+c.dataset.j;save();
+      row.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
+      row.classList.remove('right','wrong');
+    });
+  });
+  el.querySelector('.row-btns .btn').onclick=()=>checkTask(el);
+  if(S.checked[id])checkTask(el,true);
+}
+function checkTask(el,silent){
+  const id=el.dataset.task,T=TASKS[id];let n=0,missing=0;
+  el.querySelectorAll('.item').forEach(row=>{
+    const i=+row.dataset.i,v=S.sel[id][i],it=T.items[i];
+    row.classList.remove('right','wrong');
+    if(v===undefined||v===null){missing++;return;}
+    const ok=v===it.a;if(ok)n++;
+    row.classList.add(ok?'right':'wrong');
+    row.querySelector('.fb').innerHTML=ok?`<b>⭕ 정답!</b> ${it.why}`:`<b>🤔 다시 생각해 봐요.</b> 정답은 ‘${T.opts[it.a]}’. ${it.why}`;
+  });
+  if(missing&&!silent){toast(`아직 고르지 않은 장면이 ${missing}개 있어요.`);return;}
+  el.querySelector('.score').textContent=`${n} / ${T.items.length}`;
+  S.checked[id]={n,total:T.items.length};save();renderNav();
+  if(!silent)toast(n===T.items.length?'🎉 모두 맞혔어요!':`${n}개 맞혔어요. 해설을 읽어 봐요!`);
+}
+$$('[data-task]').forEach(renderTask);
+
+/* ---------- summary sentence ---------- */
+function checkBlank(silent){
+  const a=($('#blank1').value||'').replace(/\s/g,''),b=($('#blank2').value||'').replace(/\s/g,'');
+  const ok1=/^대의제|^간접민주주의/.test(a),ok2=/^시민|^국민/.test(b);
+  if(!silent&&(!a||!b)){toast('두 빈칸을 모두 채워 주세요.');return;}
+  if(!a&&!b)return;
+  $('#blank1').className=ok1?'ok':'no';$('#blank2').className=ok2?'ok':'no';
+  $('#blankScore').textContent=`${(ok1?1:0)+(ok2?1:0)} / 2`+((ok1&&ok2)?' 🎉':'  (정답: 대의제, 시민)');
+  S.checked.blank={n:(ok1?1:0)+(ok2?1:0),total:2};save();
+}
+$('#checkBlank').onclick=()=>checkBlank(false);
+if(S.checked.blank)checkBlank(true);
+
+/* ---------- connection map ---------- */
+$('#mapgrid').innerHTML=MAP.map(m=>`<div class="mcard" id="mc-${m.k}"><h4>${m.t}</h4><p>${m.d}</p><textarea id="m-${m.k}" data-mk="${m.k}" aria-label="${m.t}: 우리 학교에서는" placeholder="🏫 우리 학교에서는…"></textarea></div>`).join('');
+$$('[data-mk]').forEach(el=>{
+  const card=$('#mc-'+el.dataset.mk);
+  const mark=()=>card.classList.toggle('filled',!!el.value.trim());
+  el.value=S.f[el.dataset.mk]||'';mark();
+  el.addEventListener('input',()=>{S.f[el.dataset.mk]=el.value;save();mark();});
+});
+
+/* ---------- quiz ---------- */
+function quizScore(){return S.quiz.ans.reduce((s,v,i)=>s+(v===QUIZ[i].a?1:0),0);}
+function renderQuiz(){
+  const box=$('#quiz'),i=S.quiz.i;
+  if(i>=QUIZ.length){
+    const sc=quizScore();
+    box.innerHTML=`<div class="result"><span class="big">${sc*10}점</span><p style="margin:22px 0 4px;font-weight:700">10문항 중 ${sc}문항을 맞혔어요!</p><p style="color:var(--ink-2);font-size:14.5px">${sc>=8?'학교와 민주주의를 아주 잘 연결했어요. 👏':'틀린 문항의 해설을 다시 보고 한 번 더 도전해 봐요. 💪'}</p><div class="row-btns" style="justify-content:center"><button class="btn ghost" type="button" id="qRetry">🔁 다시 풀기</button><button class="btn color" type="button" id="qPf">📁 포트폴리오 보기</button></div></div>`;
+    $('#qRetry').onclick=()=>{S.quiz={i:0,ans:[]};save();renderQuiz();renderNav();};
+    $('#qPf').onclick=()=>go('p6');
+    return;
+  }
+  const Q=QUIZ[i],picked=S.quiz.ans[i],ox=Q.o.length===2;
+  const dots=QUIZ.map((q,k)=>{const a=S.quiz.ans[k];let c=k===i?'now':'';if(k<i&&a!=null)c=a===q.a?'r':'w';return `<i class="${c}"></i>`;}).join('');
+  box.innerHTML=`<div class="qhead"><span class="count">문항 ${i+1} / ${QUIZ.length}</span><span class="qdots" aria-hidden="true">${dots}</span></div>
+    <p class="qtext">${Q.q}</p>
+    <div class="opts ${ox?'ox':''}">${Q.o.map((o,j)=>`<button class="opt" type="button" data-j="${j}">${ox?o:'①②③④'[j]+' '+o}</button>`).join('')}</div>
+    <div id="qExp"></div>`;
+  const show=j=>{
+    box.querySelectorAll('.opt').forEach((b,k)=>{b.disabled=true;if(k===Q.a)b.classList.add('right');else if(k===j)b.classList.add('wrong');});
+    $('#qExp').innerHTML=`<div class="explain"><b>${j===Q.a?'⭕ 정답이에요!':'❌ 아쉬워요.'}</b> ${Q.e}</div><div class="row-btns"><button class="btn color" type="button" id="qNext">${i===QUIZ.length-1?'결과 보기 🏁':'다음 문항'}</button></div>`;
+    $('#qNext').onclick=()=>{S.quiz.i++;save();renderQuiz();renderNav();$('#quizBlock').scrollIntoView({block:'start'});};
+  };
+  box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const j=+b.dataset.j;S.quiz.ans[i]=j;save();show(j);});
+  if(picked!==undefined&&picked!==null)show(picked);
+}
+renderQuiz();
+
+/* ---------- helpers ---------- */
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function raw(k){return S.f[k]&&S.f[k].trim()?S.f[k].trim():'';}
+function v(k){return raw(k)?esc(raw(k)):'(작성하지 않음)';}
+function pk(k){return S.pick[k]?esc(S.pick[k]):'(선택하지 않음)';}
+function sc(id){return S.checked[id]?`${S.checked[id].n}/${S.checked[id].total}`:'미확인';}
+function today(){const t=new Date();return `${t.getFullYear()}. ${t.getMonth()+1}. ${t.getDate()}.`;}
+function idLine(){const I=S.info||{};return `${I.grade||'-'}학년 ${I.cls||'-'}반 ${I.num||'-'}번 ${I.name||'이름 미입력'}`;}
+function baseName(){const I=S.info||{};return `민주주의연결노트_${I.grade||''}-${I.cls||''}-${I.num||''}_${I.name||'학생'}`;}
+function taskTotals(){let n=0,t=0;['features','limits','click','methods','forum'].forEach(k=>{if(S.checked[k]){n+=S.checked[k].n;t+=S.checked[k].total;}});return {n,t};}
+
+/* ---------- portfolio ---------- */
+function renderPortfolio(){
+  const I=S.info||{};const done=S.quiz.i>=QUIZ.length;
+  $('#checklist').innerHTML=PAGES.slice(0,5).map(p=>`<span class="${progressOf(p.id)?'ok':''}">${progressOf(p.id)?'⭐':'○'} ${p.e} ${p.t}</span>`).join('');
+  $('#sheetWrap').innerHTML=`<div class="sheet" id="sheet">
+    <div class="top"><div><div style="font-size:13px;color:var(--ink-2)">중학교 사회 1 · 9-③</div><h2>현대 민주주의 연결 노트</h2></div>
+      <div class="meta">${esc(I.school||'학교 미입력')}<br>${esc(idLine())}<br>${today()}</div></div>
+    <h4>🏛️ 1. 현대 민주주의의 특징</h4>
+    <div class="ans">특징 연결 활동: ${sc('features')}
+밸런스 게임: ${pk('balance')}
+까닭: ${v('balanceWhy')}
+내 말로 정리: ${v('p1sum')}</div>
+    <h4>🧩 2. 한계와 과제</h4>
+    <div class="ans">학교 속 한계 찾기: ${sc('limits')}
+휠체어 친구의 투표권 지키기: ${v('access')}
+무관심한 친구 참여 이끌기: ${v('task1')}
+1학년 목소리 반영 방법: ${v('task2')}
+온라인 참여 사례 판정: ${sc('click')}
+클릭티비즘 입장: ${pk('clickStance')}
+까닭: ${v('clickWhy')}</div>
+    <h4>🗳️ 3. 민주주의 발전을 위한 제도</h4>
+    <div class="ans">전교생 투표 안건: ${v('vote')}
+규칙 개정안(발안): ${v('initiative')}
+서명 기준 생각: ${v('initiativeHow')}
+소환 청구 사유: ${pk('recall')}
+까닭과 문제점: ${v('recallWhy')}
+온라인 건의 게시판: ${v('edemo')}
+청소년 특별 회의 안건: ${v('youth')}
+새로 도입할 제도: ${v('youth2')}</div>
+    <h4>🙋 4. 시민의 역할과 공론장</h4>
+    <div class="ans">참여 방법 연결: ${sc('methods')}
+공청회 발언 판정: ${sc('forum')}
+우리 학교 공론장 만들기: ${v('forum')}</div>
+    <h4>🗺️ 5. 나만의 연결 지도</h4>
+    <div class="tablewrap"><table>${MAP.map(m=>`<tr><th>${m.t}</th><td>${v(m.k)}</td></tr>`).join('')}</table></div>
+    <h4>✏️ 6. 정리</h4>
+    <div class="ans">한 문장 정리: ${sc('blank')}
+형성평가: ${done?`${quizScore()*10}점 (${quizScore()}/10)`:'아직 끝내지 않음'}</div>
+    ${done?`<div style="text-align:right;margin-top:14px"><span class="stamp">학습 완료 ⭐</span></div>`:''}
+  </div>`;
+}
+
+/* ---------- share ---------- */
+function renderShare(){
+  const I=S.info||{};const done=S.quiz.i>=QUIZ.length;const tt=taskTotals();
+  const filled=MAP.filter(m=>raw(m.k));
+  const cut=s=>s.length>70?s.slice(0,70)+'…':s;
+  $('#scard').innerHTML=`<div class="hd"><small>중학교 사회 1 · 9-③ 현대 민주주의</small><h4>🏫 우리 학교 민주주의 연결 노트</h4></div>
+    <div class="bd">
+      <div class="who2">${esc(I.name||'이름 미입력')}<span>${esc(I.school||'')} ${esc(I.grade||'-')}학년 ${esc(I.cls||'-')}반 ${esc(I.num||'-')}번</span></div>
+      <div class="stats">
+        <div><b>${done?quizScore()*10:'-'}</b>형성평가</div>
+        <div><b>${tt.t?`${tt.n}/${tt.t}`:'-'}</b>활동 정답</div>
+        <div><b>${filled.length}/6</b>연결 지도</div>
+      </div>
+      <div class="pairs">${filled.length?filled.map(m=>`<div class="pair"><b>${m.t}</b> ⇄ ${esc(cut(raw(m.k)))}</div>`).join(''):`<div class="empty">‘정리·퀴즈’ 탭에서 연결 지도를 채우면 여기에 나와요.</div>`}</div>
+      <div class="ft"><span>${today()}</span>${done?'<span class="stamp" style="font-size:16px">학습 완료 ⭐</span>':`<span>⭐ ${doneCount()}/5 차시 완료</span>`}</div>
+    </div>`;
+  $('#shareText').value=shareText();
+  $('#copied').textContent='';
+}
+function shareText(){
+  const I=S.info||{};const done=S.quiz.i>=QUIZ.length;const tt=taskTotals();
+  const L=[];
+  L.push('[우리 학교 민주주의 연결 노트]');
+  L.push(`${I.school||''} ${idLine()}`.trim());
+  L.push(`형성평가: ${done?quizScore()*10+'점':'미완료'} / 활동 정답: ${tt.t?tt.n+'/'+tt.t:'-'} / 완료 차시: ${doneCount()}/5`);
+  L.push('');
+  L.push('🗺️ 나만의 연결 지도 (민주주의 ⇄ 우리 학교)');
+  MAP.forEach(m=>L.push(`· ${m.t} ⇄ ${raw(m.k)||'(작성하지 않음)'}`));
+  L.push('');
+  if(raw('p1sum'))L.push(`💬 대의제를 하는 까닭: ${raw('p1sum')}`);
+  if(raw('initiative'))L.push(`📝 내가 제안한 규칙: ${raw('initiative')}`);
+  if(raw('youth'))L.push(`🧑‍⚖️ 청소년 특별 회의 안건: ${raw('youth')}`);
+  if(raw('forum'))L.push(`🙋 우리 학교 공론장 만들기: ${raw('forum')}`);
+  return L.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+
+/* ---------- export (PDF, image, share) ---------- */
+let downloads=null;
+if(window.claude&&typeof window.claude.use==='function'){
+  window.claude.use('downloads').then(d=>{downloads=d;}).catch(()=>{});
+}
+async function saveBlob(blob,filename){
+  if(downloads){
+    try{await downloads.save({filename,data:blob});toast('저장했어요! 이제 단톡방에 올려 보세요.');}
+    catch(err){toast(err&&err.code==='declined'?'저장을 취소했어요.':'이 화면에서는 저장할 수 없어요.');}
+    return;
+  }
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);toast('저장했어요!');
+}
+async function capture(el){
+  if(typeof html2canvas==='undefined')throw new Error('nolib');
+  if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+  const had=el.classList.contains('print-light');el.classList.add('print-light');
+  try{
+    const canvas=await html2canvas(el,{scale:2,backgroundColor:'#FFFFFF',useCORS:true});
+    return await new Promise(r=>canvas.toBlob(r,'image/png'));
+  }finally{if(!had)el.classList.remove('print-light');}
+}
+$('#pdfBtn').onclick=async()=>{
+  if(typeof html2pdf==='undefined'){toast('PDF 도구를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.');return;}
+  renderPortfolio();
+  const el=$('#sheet');el.classList.add('print-light');
+  const fname=baseName()+'.pdf';
+  const opt={margin:10,filename:fname,image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,backgroundColor:'#FFFFFF'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}};
+  toast('PDF를 만들고 있어요…');
+  try{
+    if(downloads){const blob=await html2pdf().set(opt).from(el).outputPdf('blob');await saveBlob(blob,fname);}
+    else{await html2pdf().set(opt).from(el).save();toast('PDF를 저장했어요!');}
+  }catch(e){toast('PDF를 만들지 못했어요. 다시 시도해 주세요.');}
+  finally{el.classList.remove('print-light');}
+};
+$('#imgCardBtn').onclick=async()=>{
+  renderShare();toast('이미지를 만들고 있어요…');
+  try{await saveBlob(await capture($('#scard')),baseName()+'_요약카드.png');}
+  catch(e){toast('이미지를 만들지 못했어요. 글 복사하기를 이용해 주세요.');}
+};
+$('#imgFullBtn').onclick=async()=>{
+  renderPortfolio();toast('이미지를 만들고 있어요…');
+  try{await saveBlob(await capture($('#sheet')),baseName()+'_포트폴리오.png');}
+  catch(e){toast('이미지를 만들지 못했어요. PDF 저장을 이용해 주세요.');}
+};
+if(navigator.share&&navigator.canShare){
+  $('#shareBtn').hidden=false;
+  $('#shareBtn').onclick=async()=>{
+    try{
+      const blob=await capture($('#scard'));
+      const file=new File([blob],baseName()+'_요약카드.png',{type:'image/png'});
+      if(navigator.canShare({files:[file]}))await navigator.share({files:[file],text:shareText()});
+      else await navigator.share({text:shareText()});
+    }catch(e){if(!e||e.name!=='AbortError'){$('#shareBtn').hidden=true;toast('이 화면에서는 바로 공유가 안 돼요. 이미지 저장을 이용해 주세요.');}}
+  };
+}
+$('#copyBtn').onclick=async()=>{
+  const ta=$('#shareText');ta.value=shareText();
+  let ok=false;
+  try{await navigator.clipboard.writeText(ta.value);ok=true;}catch(e){}
+  if(!ok){try{ta.removeAttribute('readonly');ta.focus();ta.select();ok=document.execCommand('copy');}catch(e){}ta.setAttribute('readonly','');}
+  if(ok){$('#copied').textContent='✓ 복사됐어요! 단톡방에 붙여 넣어요.';toast('복사했어요!');}
+  else{ta.focus();ta.select();$('#copied').textContent='글을 길게 눌러 직접 복사해 주세요.';}
+};
+$('#resetBtn').onclick=()=>{
+  if(!confirm('작성한 내용이 모두 지워져요. 처음부터 다시 할까요?'))return;
+  const info=S.info;S=blank();S.info=info;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}location.reload();
+};
+
+/* ---------- onboarding ---------- */
+function paintWho(){const I=S.info;$('#who').textContent=I?`${I.grade}-${I.cls} ${I.num}번 ${I.name}`:'이름 입력';}
+function openOnboard(){
+  const I=S.info||{};
+  $('#ob-school').value=I.school||'';$('#ob-grade').value=I.grade||'1';$('#ob-class').value=I.cls||'';$('#ob-num').value=I.num||'';$('#ob-name').value=I.name||'';
+  $('#onboard').classList.add('on');$('#ob-school').focus();
+}
+$('#who').onclick=openOnboard;
+$('#obForm').onsubmit=e=>{
+  e.preventDefault();
+  S.info={school:$('#ob-school').value.trim(),grade:$('#ob-grade').value,cls:$('#ob-class').value,num:$('#ob-num').value,name:$('#ob-name').value.trim()};
+  save();paintWho();$('#onboard').classList.remove('on');toast(`${S.info.name} 학생, 시작해 볼까요? 🚀`);
+  if(S.tab==='p6')renderPortfolio();if(S.tab==='p7')renderShare();
+};
+
+paintWho();
+go(PAGES.some(p=>p.id===S.tab)?S.tab:'p1');
+if(!S.info)openOnboard();
+</script>
+</body>
+</html>
